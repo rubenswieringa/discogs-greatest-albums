@@ -1,5 +1,5 @@
 module.exports = {
   moduleNameMapper: {
-    '@(components|views)/(.*)$': '<rootDir>/src/$1/$2',
+    '@(components|state|utils|views)/(.*)$': '<rootDir>/src/$1/$2',
   },
 }

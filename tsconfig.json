@@ -15,6 +15,8 @@
     "baseUrl": "./",
     "paths": {
         "@components/*": ["src/components/*"],
+        "@state/*": ["src/state/*"],
+        "@utils/*": ["src/utils/*"],
         "@views/*": ["src/views/*"]
     },
     "types": ["node", "jest"]
