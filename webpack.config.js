@@ -39,6 +39,10 @@ module.exports = {
     ],
   },
 
+  devServer: {
+    historyApiFallback: true,
+  },
+
   plugins: [
     new HtmlWebpackPlugin({ inject: true, template: path.join(APP_PATH, 'index.html') }),
     new ForkTsCheckerWebpackPlugin(),
