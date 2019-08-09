@@ -4,8 +4,5 @@
 // Definitions:
 
 declare module 'dialog-polyfill' {
-  const dialogPolyfill: {
-    registerDialog: (element: HTMLElement) => void;
-  };
-  export default dialogPolyfill;
+  export function registerDialog(element: HTMLElement): void;
 }
