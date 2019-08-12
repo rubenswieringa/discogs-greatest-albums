@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import * as dialogPolyfill from 'dialog-polyfill';
+import dialogPolyfill from 'dialog-polyfill';
 import styled from 'styled-components';
 
 import { ExtendableStyledComponentProps, extendableStyledComponentAttrs } from '@utils/styled-components';
