@@ -4,5 +4,5 @@ export const albumEquals = (a: Album | null, b: Album | null) => {
   if (!a || !b) {
     return !!a === !!b;
   }
-  return a.name === b.name;
+  return a.id == b.id;
 };

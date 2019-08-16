@@ -5,8 +5,12 @@ describe('albumEquals', () => {
     expect(equals(null, null)).toBe(true);
   });
 
-  it('compares albums by name', () => {
-    expect(equals({ name: 'Peach' }, { name: 'Peach' })).toBe(true);
-    expect(equals({ name: 'Peach' }, { name: 'Bay Dream' })).toBe(false);
+  it('compares albums by ID', () => {
+    expect(equals({ id: 1, name: 'Peach' }, { id: 1, name: 'Bay Dream' })).toBe(true);
+    expect(equals({ id: 1, name: 'Peach' }, { id: 2, name: 'Peach' })).toBe(false);
+  });
+
+  it('compares album-IDs by regular (non-strict) equality', () => {
+    expect(equals({ id: 1, name: 'Peach' }, { id: '1', name: 'Peach' })).toBe(true);
   });
 });

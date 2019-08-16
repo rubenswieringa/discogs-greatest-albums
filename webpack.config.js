@@ -1,5 +1,7 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const DotenvPlugin = require('dotenv-webpack');
+
 const path = require('path');
 const APP_PATH = path.resolve(__dirname, 'src');
 
@@ -13,12 +15,14 @@ module.exports = {
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
-    alias: {
-      '@components': path.resolve(__dirname, './src/components/'),
-      '@state': path.resolve(__dirname, './src/state/'),
-      '@utils': path.resolve(__dirname, './src/utils/'),
-      '@views': path.resolve(__dirname, './src/views/'),
-    }
+    alias: [
+      'actions',
+      'components',
+      'sagas',
+      'state',
+      'utils',
+      'views',
+    ].reduce(( map, folder ) => ({ ...map, [`@${folder}`]: path.resolve(__dirname, `./src/${folder}/`) }), {})
   },
 
   module: {
@@ -48,5 +52,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({ inject: true, template: path.join(APP_PATH, 'index.html') }),
     new ForkTsCheckerWebpackPlugin(),
-  ]
+    new DotenvPlugin(),
+  ],
 };

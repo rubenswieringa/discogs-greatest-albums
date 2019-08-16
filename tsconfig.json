@@ -14,7 +14,9 @@
     "jsx": "react",
     "baseUrl": "./",
     "paths": {
+        "@actions/*": ["src/actions/*"],
         "@components/*": ["src/components/*"],
+        "@sagas/*": ["src/sagas/*"],
         "@state/*": ["src/state/*"],
         "@utils/*": ["src/utils/*"],
         "@views/*": ["src/views/*"]
