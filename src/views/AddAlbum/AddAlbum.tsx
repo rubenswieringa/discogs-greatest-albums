@@ -4,7 +4,7 @@ import useRouter from 'use-react-router';
 
 import { AddAlbumAction, ADD_ALBUM, AutoCompleteAlbumAction, AUTO_COMPLETE_ALBUM } from '@actions/album';
 import { Button } from '@components/Button';
-import { AlbumAutoCompleteTarget, Album } from '@state/album';
+import { AlbumAutoCompleteTarget, Album, AlbumAutoCompleteState } from '@state/album';
 import { State } from '@state/index';
 
 import { AddAlbumLayout as Layout } from './layout';
@@ -19,9 +19,11 @@ const Component: React.FunctionComponent = () => {
   const target = AlbumAutoCompleteTarget.DIALOG;
   const autoComplete = useSelector(({ albums: { autoComplete } }: State) => autoComplete && autoComplete[target]);
 
-  const search = useCallback(event => {
-    const value = event.target.value;
-    setName(value);
+  const search = useCallback((event?) => {
+    const value = event ? event.target.value : name;
+    if (name !== value) {
+      setName(value);
+    }
     if (!value) {
       return;
     }
@@ -44,6 +46,11 @@ const Component: React.FunctionComponent = () => {
       {autoComplete && (
         <>
           <p>Did you mean…{autoComplete.state && ` (${autoComplete.state.toLowerCase()})`}</p>
+          {autoComplete.state === AlbumAutoCompleteState.ERROR && (
+            <p>
+              Something went wrong – <a onClick={() => search()}>click here to try again</a>
+            </p>
+          )}
           {autoComplete.suggestions && autoComplete.suggestions.length && (
             <ul>
               {autoComplete.suggestions.map(album => (
