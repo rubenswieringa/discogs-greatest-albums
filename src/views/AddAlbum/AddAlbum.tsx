@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useRouter from 'use-react-router';
 
 import { AddAlbumAction, ADD_ALBUM, AutoCompleteAlbumAction, AUTO_COMPLETE_ALBUM } from '@actions/album';
-import { Button } from '@components/Button';
+import { AlbumListItem } from '@components/AlbumListItem';
 import { AlbumAutoCompleteTarget, Album, AlbumAutoCompleteState } from '@state/album';
 import { State } from '@state/index';
 
@@ -31,8 +31,7 @@ const Component: React.FunctionComponent = () => {
   }, []);
 
   const pick = useCallback(
-    (album: Album, event: { preventDefault: () => void }) => {
-      event.preventDefault();
+    (album: Album) => {
       dispatch<AddAlbumAction>({ type: ADD_ALBUM, album });
       close();
     },
@@ -54,9 +53,7 @@ const Component: React.FunctionComponent = () => {
           {autoComplete.suggestions && autoComplete.suggestions.length && (
             <ul>
               {autoComplete.suggestions.map(album => (
-                <li key={album.id}>
-                  <Button onClick={event => pick(album, event)}>{album.name}</Button>
-                </li>
+                <AlbumListItem key={album.id} album={album} onClick={album => pick(album)} />
               ))}
             </ul>
           )}
