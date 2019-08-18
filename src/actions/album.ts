@@ -39,3 +39,9 @@ export interface AutoCompleteAlbumErrorAction {
   type: typeof AUTO_COMPLETE_ALBUM_ERROR;
   target: AlbumAutoCompleteTarget;
 }
+
+export const AUTO_COMPLETE_ALBUM_RESET = 'AUTO_COMPLETE_ALBUM_RESET';
+export interface AutoCompleteAlbumResetAction {
+  type: typeof AUTO_COMPLETE_ALBUM_RESET;
+  target: AlbumAutoCompleteTarget;
+}

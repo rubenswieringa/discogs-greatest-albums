@@ -9,6 +9,8 @@ import {
   AutoCompleteAlbumSuccessAction,
   AUTO_COMPLETE_ALBUM_ERROR,
   AutoCompleteAlbumErrorAction,
+  AUTO_COMPLETE_ALBUM_RESET,
+  AutoCompleteAlbumResetAction,
 } from '@actions/album';
 import { AlbumAutoCompleteTarget, AlbumAutoCompleteState } from '@state/album';
 
@@ -119,6 +121,19 @@ describe('AlbumReducer', () => {
         };
 
         expect(reducer(state, action).autoComplete![TARGET]!.state).toBe(AlbumAutoCompleteState.SUCCESS);
+      });
+    });
+
+    describe('reset-action', () => {
+      it('clears state', () => {
+        const state: AlbumState = {
+          list: [],
+          autoComplete: { [TARGET]: { suggestions: ALBUMS, state: AlbumAutoCompleteState.SUCCESS } },
+        };
+        const action: AutoCompleteAlbumResetAction = { type: AUTO_COMPLETE_ALBUM_RESET, target: TARGET };
+
+        expect(reducer(state, action).autoComplete).toBeDefined();
+        expect(reducer(state, action).autoComplete![TARGET]).toBeUndefined();
       });
     });
   });

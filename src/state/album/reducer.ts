@@ -9,6 +9,8 @@ import {
   AutoCompleteAlbumStartAction,
   AUTO_COMPLETE_ALBUM_ERROR,
   AutoCompleteAlbumErrorAction,
+  AUTO_COMPLETE_ALBUM_RESET,
+  AutoCompleteAlbumResetAction,
 } from '@actions/album';
 import { AlbumAutoCompleteState, AlbumAutoCompleteTarget } from '@state/album';
 import { albumEquals as equals } from '@utils/album';
@@ -21,7 +23,8 @@ type ReducerAction =
   | RemoveAlbumAction
   | AutoCompleteAlbumStartAction
   | AutoCompleteAlbumSuccessAction
-  | AutoCompleteAlbumErrorAction;
+  | AutoCompleteAlbumErrorAction
+  | AutoCompleteAlbumResetAction;
 
 interface AutoCompleteState {
   suggestions: Album[];
@@ -74,6 +77,14 @@ export const albumReducer = (state: AlbumState = INITIAL_STATE, action?: Reducer
     case AUTO_COMPLETE_ALBUM_ERROR:
       const errorAction = action as AutoCompleteAlbumErrorAction;
       return adjustState(state, ['autoComplete', errorAction.target, 'state'], AlbumAutoCompleteState.ERROR);
+
+    case AUTO_COMPLETE_ALBUM_RESET:
+      const resetAction = action as AutoCompleteAlbumResetAction;
+      const { [resetAction.target]: disposable, ...autoComplete } = state.autoComplete!;
+      return {
+        ...state,
+        autoComplete: { ...autoComplete },
+      };
 
     default:
       return state;
