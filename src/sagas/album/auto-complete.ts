@@ -1,4 +1,4 @@
-import { put, call } from 'redux-saga/effects';
+import { put, call, cancelled } from 'redux-saga/effects';
 
 import { Album } from '@state/album';
 import {
@@ -22,11 +22,17 @@ export function* autoCompleteAlbumSaga({ query, target }: AutoCompleteAlbumActio
   try {
     response = yield call(requestSearchAlbums, query);
   } catch {
-    yield put<AutoCompleteAlbumErrorAction>({ type: AUTO_COMPLETE_ALBUM_ERROR, target });
-    return;
+    if (!(yield cancelled())) {
+      yield put<AutoCompleteAlbumErrorAction>({ type: AUTO_COMPLETE_ALBUM_ERROR, target });
+      return;
+    }
+  } finally {
+    if (yield cancelled()) {
+      return;
+    }
   }
 
-  const albums: Album[] = response.data.results
+  const albums: Album[] = response!.data.results
     .slice(0, MAX_SUGGESTIONS)
     .map(({ id, title }): Album => ({ id, name: title }));
 

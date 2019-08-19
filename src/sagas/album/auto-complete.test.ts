@@ -80,6 +80,30 @@ describe('autoCompleteAlbumSaga', () => {
     done();
   });
 
+  it('stops if cancelled', async done => {
+    requestSearchAlbums.mockReturnValue(Promise.resolve({ data: { results: [] } }));
+    const task = runSaga(...runSagaArgs);
+    task.cancel();
+    await task.toPromise();
+
+    expect(task.isCancelled()).toBe(true);
+    expect(dispatchedActions.length).toBe(1);
+    expect(dispatchedActions[0].type).toEqual(AUTO_COMPLETE_ALBUM_START);
+    done();
+  });
+
+  it('doesn’t dispatch error-action if cancelled', async done => {
+    requestSearchAlbums.mockReturnValue(Promise.reject());
+    const task = runSaga(...runSagaArgs);
+    task.cancel();
+    await task.toPromise();
+
+    expect(task.isCancelled()).toBe(true);
+    expect(dispatchedActions.length).toBe(1);
+    expect(dispatchedActions[0].type).toEqual(AUTO_COMPLETE_ALBUM_START);
+    done();
+  });
+
   it('truncates to max 20 albums', async done => {
     const apiAlbums = Array(60)
       .fill(null)
