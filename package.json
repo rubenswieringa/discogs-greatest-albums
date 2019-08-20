@@ -37,6 +37,7 @@
     "redux-saga": "^1.0.5",
     "source-map-loader": "^0.2.4",
     "styled-components": "^4.3.2",
+    "use-debounce": "^3.0.0",
     "use-react-router": "^1.0.7"
   },
   "devDependencies": {

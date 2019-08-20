@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useRouter from 'use-react-router';
+import { useDebounce } from 'use-debounce';
 
 import {
   AddAlbumAction,
@@ -28,7 +29,7 @@ const Component: React.FunctionComponent = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const reset = useCallback(() => {
     dispatch<AutoCompleteAlbumResetAction>({ type: AUTO_COMPLETE_ALBUM_RESET, target: TARGET });
   }, []);
 
@@ -54,10 +55,15 @@ const Component: React.FunctionComponent = () => {
     [close],
   );
 
+  useEffect(reset, []);
+
+  const [debouncedName] = useDebounce(name, 500);
+  useEffect(search, [debouncedName]);
+
   return (
     <Layout as={Dialog}>
       <h2>Add album</h2>
-      <input type="text" value={name} onChange={event => search(event)} />
+      <input type="text" value={name} onChange={event => setName(event.target.value)} />
       {name && autoComplete && (
         <>
           <p>Did you mean…{autoComplete.state && ` (${autoComplete.state.toLowerCase()})`}</p>
