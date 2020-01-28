@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 import {
   ADD_ALBUM,
   AddAlbumAction,
@@ -18,7 +20,11 @@ import { albumReducer as reducer, AlbumState } from './reducer';
 import { Album } from './album';
 
 describe('AlbumReducer', () => {
-  const ALBUMS: Album[] = [{ id: 1, name: 'Demo' }, { id: 2, name: 'Peach' }, { id: 3, name: 'Bay Dream' }];
+  const ALBUMS: Album[] = [
+    { id: 1, name: 'Demo', image: faker.image.abstract() },
+    { id: 2, name: 'Peach', image: faker.image.abstract() },
+    { id: 3, name: 'Bay Dream', image: faker.image.abstract() },
+  ];
 
   describe('initial state', () => {
     it('is defined', () => {

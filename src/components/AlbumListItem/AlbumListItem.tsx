@@ -16,5 +16,10 @@ export const AlbumListItem: React.FunctionComponent<Props> = ({ album, onClick }
     [onClick, album],
   );
 
-  return <li onClick={event => invokeClickHandler(event)}>{album.name}</li>;
+  return (
+    <li onClick={event => invokeClickHandler(event)}>
+      <img src={album.image} alt={`Album artwork for ${album.name}`} />
+      <p>{album.name}</p>
+    </li>
+  );
 };

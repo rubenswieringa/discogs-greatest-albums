@@ -1,4 +1,5 @@
 import nock from 'nock';
+import faker from 'faker';
 
 import { requestSearchAlbums } from './request-search-albums';
 
@@ -52,7 +53,12 @@ describe('requestSearchAlbums()', () => {
   );
 
   it('resolves for HTTP-status 200', () => {
-    const data = { results: [{ id: 1, title: 'Peach' }, { id: 2, title: 'Bay Dream' }] };
+    const data = {
+      results: [
+        { id: 1, title: 'Peach', thumb: faker.image.abstract() },
+        { id: 2, title: 'Bay Dream', thumb: faker.image.abstract() },
+      ],
+    };
 
     nock(DOMAIN)
       .get(/.*/)

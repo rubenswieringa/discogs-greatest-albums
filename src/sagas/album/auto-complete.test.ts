@@ -57,11 +57,14 @@ describe('autoCompleteAlbumSaga', () => {
   });
 
   it('dispatches success-action if requestSearchAlbums() resolves', async done => {
-    const apiAlbums = [{ id: 1, title: 'Big Attraction' }, { id: 2, title: 'Giddy Up' }];
+    const apiAlbums = [
+      { id: 1, title: 'Big Attraction', thumb: faker.image.abstract() },
+      { id: 2, title: 'Giddy Up', thumb: faker.image.abstract() },
+    ];
     requestSearchAlbums.mockReturnValue(Promise.resolve({ data: { results: apiAlbums } }));
     await runSaga(...runSagaArgs).toPromise();
 
-    const albums: Album[] = apiAlbums.map(({ id, title: name }) => ({ id, name }));
+    const albums: Album[] = apiAlbums.map(({ id, title: name, thumb: image }) => ({ id, name, image }));
     const action: AutoCompleteAlbumSuccessAction = { type: AUTO_COMPLETE_ALBUM_SUCCESS, target: TARGET, albums };
 
     expect(dispatchedActions.length).toBe(2);
@@ -107,12 +110,12 @@ describe('autoCompleteAlbumSaga', () => {
   it('truncates to max 20 albums', async done => {
     const apiAlbums = Array(60)
       .fill(null)
-      .map((_, index) => ({ id: index + 1, title: faker.random.words() }));
+      .map((_, index) => ({ id: index + 1, title: faker.random.words(), thumb: faker.random.image() }));
 
     requestSearchAlbums.mockReturnValue(Promise.resolve({ data: { results: apiAlbums } }));
     await runSaga(...runSagaArgs).toPromise();
 
-    const albums: Album[] = apiAlbums.map(({ id, title: name }) => ({ id, name }));
+    const albums: Album[] = apiAlbums.map(({ id, title: name, thumb: image }) => ({ id, name, image }));
     const action = dispatchedActions.find(
       ({ type }) => type === AUTO_COMPLETE_ALBUM_SUCCESS,
     ) as AutoCompleteAlbumSuccessAction;

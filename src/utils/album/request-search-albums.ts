@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-type APIAlbum = { id: number; title: string };
-type APIResponse = { data: { results: APIAlbum[] } };
+export type DiscogsAPIAlbum = { id: number; title: string; thumb: string };
+export type DiscogsAPIResponse = { data: { results: DiscogsAPIAlbum[] } };
 
-export const requestSearchAlbums = (query: string): Promise<APIResponse> => {
+export const requestSearchAlbums = (query: string): Promise<DiscogsAPIResponse> => {
   const q = query
     .split(/\s+/)
     .map(encodeURIComponent)

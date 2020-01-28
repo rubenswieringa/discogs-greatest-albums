@@ -10,14 +10,14 @@ import {
   AUTO_COMPLETE_ALBUM_START,
   AutoCompleteAlbumStartAction,
 } from '@actions/album';
-import { requestSearchAlbums } from '@utils/album';
+import { requestSearchAlbums, DiscogsAPIResponse } from '@utils/album';
 
 const MAX_SUGGESTIONS = 20;
 
 export function* autoCompleteAlbumSaga({ query, target }: AutoCompleteAlbumAction) {
   yield put<AutoCompleteAlbumStartAction>({ type: AUTO_COMPLETE_ALBUM_START, target });
 
-  let response: { data: { results: { id: number; title: string }[] } };
+  let response: DiscogsAPIResponse;
 
   try {
     response = yield call(requestSearchAlbums, query);
@@ -34,7 +34,7 @@ export function* autoCompleteAlbumSaga({ query, target }: AutoCompleteAlbumActio
 
   const albums: Album[] = response!.data.results
     .slice(0, MAX_SUGGESTIONS)
-    .map(({ id, title }): Album => ({ id, name: title }));
+    .map(({ id, title: name, thumb: image }): Album => ({ id, name, image }));
 
   yield put<AutoCompleteAlbumSuccessAction>({ type: AUTO_COMPLETE_ALBUM_SUCCESS, albums, target });
 }

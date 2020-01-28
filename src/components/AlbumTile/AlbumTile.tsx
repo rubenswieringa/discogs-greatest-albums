@@ -7,5 +7,9 @@ interface Props {
 }
 
 export const AlbumTile: React.FunctionComponent<Props> = ({ album }) => {
-  return <li>{album.name}</li>;
+  return (
+    <li title={album.name}>
+      <img src={album.image} alt={`Album artwork for ${album.name}`} />
+    </li>
+  );
 };
