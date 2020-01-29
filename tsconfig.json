@@ -19,13 +19,14 @@
         "@sagas/*": ["src/sagas/*"],
         "@state/*": ["src/state/*"],
         "@utils/*": ["src/utils/*"],
-        "@views/*": ["src/views/*"]
+        "@views/*": ["src/views/*"],
+        "@test/*": ["test/*"]
     },
     "types": ["node", "jest"]
   },
   "include": [
     "src/**/*",
-    "jest/**/*",
+    "test/**/*",
   ],
   "exclude": [
     "node_modules",

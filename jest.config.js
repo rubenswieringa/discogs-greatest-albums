@@ -1,12 +1,13 @@
 module.exports = {
   moduleNameMapper: {
     '@(actions|components|sagas|state|utils|views)/(.*)$': '<rootDir>/src/$1/$2',
+    '@test/(.*)$': '<rootDir>/test/$1',
   },
   setupFiles: [
-    '<rootDir>/jest/dialog-polyfill.mock.ts'
+    '<rootDir>/test/dialog-polyfill.mock.ts'
   ],
   setupFilesAfterEnv: [
-    '<rootDir>/jest/import-enzyme.ts',
+    '<rootDir>/test/import-enzyme.ts',
   ],
   testEnvironment: 'enzyme'
 }

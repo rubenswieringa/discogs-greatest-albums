@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { albumFactory } from '@test/album.mock';
 
 import {
   ADD_ALBUM,
@@ -17,14 +17,9 @@ import {
 import { AlbumAutoCompleteTarget, AlbumAutoCompleteState } from '@state/album';
 
 import { albumReducer as reducer, AlbumState } from './reducer';
-import { Album } from './album';
 
 describe('AlbumReducer', () => {
-  const ALBUMS: Album[] = [
-    { id: 1, name: 'Demo', image: faker.image.abstract() },
-    { id: 2, name: 'Peach', image: faker.image.abstract() },
-    { id: 3, name: 'Bay Dream', image: faker.image.abstract() },
-  ];
+  const ALBUMS = albumFactory.buildList(3);
 
   describe('initial state', () => {
     it('is defined', () => {
