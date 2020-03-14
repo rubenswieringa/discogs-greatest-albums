@@ -10,7 +10,7 @@ import {
   AddAlbumErrorAction,
 } from '@actions/album';
 
-export const LOCAL_STORAGE_ALBUMS_KEY = `__RUBENSWIERINGA_SAMPLECODEPROJECT--albums`;
+import { LOCAL_STORAGE_ALBUMS_KEY } from './local-storage-albums-key';
 
 export function* addAlbumSaga({ album }: AddAlbumAction) {
   yield put<AddAlbumStartAction>({ type: ADD_ALBUM_START, album });

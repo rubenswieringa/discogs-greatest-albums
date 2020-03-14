@@ -1,6 +1,10 @@
 import { albumFactory } from '@test/album.mock';
 
 import {
+  LOAD_ALBUMS_SUCCESS,
+  LoadAlbumsSuccessAction,
+  LOAD_ALBUMS_ERROR,
+  LoadAlbumsErrorAction,
   ADD_ALBUM_SUCCESS,
   AddAlbumSuccessAction,
   ADD_ALBUM_ERROR,
@@ -38,6 +42,24 @@ describe('AlbumReducer', () => {
   it('returns current state for unrecognized actions', () => {
     const state: AlbumState = { list: ALBUMS };
     expect(reducer(state)).toEqual(state);
+  });
+
+  it('updates album-list on albums-load success', () => {
+    const state: AlbumState = { list: [] };
+    const action: LoadAlbumsSuccessAction = { type: LOAD_ALBUMS_SUCCESS, albums: ALBUMS };
+    expect(reducer(state, action).list).toEqual(ALBUMS);
+  });
+
+  it('leaves album-list unchanged on album-load error', () => {
+    const oldList = ALBUMS.slice(1);
+    const state: AlbumState = { list: oldList };
+    const action: LoadAlbumsErrorAction = { type: LOAD_ALBUMS_ERROR };
+    expect(reducer(state, action).list).toEqual(oldList);
+  });
+
+  it('defaults album-list to empty array on album-load error', () => {
+    const action: LoadAlbumsErrorAction = { type: LOAD_ALBUMS_ERROR };
+    expect(reducer(undefined, action).list).toEqual([]);
   });
 
   it('updates whole album-list on album-add success', () => {

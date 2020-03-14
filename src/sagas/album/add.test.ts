@@ -14,7 +14,8 @@ import {
 } from '@actions/album';
 import { Album } from '@state/album';
 
-import { addAlbumSaga, LOCAL_STORAGE_ALBUMS_KEY } from './add';
+import { addAlbumSaga } from './add';
+import { LOCAL_STORAGE_ALBUMS_KEY } from './local-storage-albums-key';
 
 describe('addAlbumSaga', () => {
   const ALBUMS = albumFactory.buildList(3);

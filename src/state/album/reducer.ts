@@ -1,4 +1,8 @@
 import {
+  LOAD_ALBUMS_SUCCESS,
+  LoadAlbumsSuccessAction,
+  LOAD_ALBUMS_ERROR,
+  LoadAlbumsErrorAction,
   ADD_ALBUM_SUCCESS,
   AddAlbumSuccessAction,
   ADD_ALBUM_ERROR,
@@ -21,6 +25,8 @@ import { adjustState } from '@utils/state';
 import { Album } from './album';
 
 type ReducerAction =
+  | LoadAlbumsSuccessAction
+  | LoadAlbumsErrorAction
   | AddAlbumSuccessAction
   | AddAlbumErrorAction
   | RemoveAlbumAction
@@ -38,7 +44,6 @@ export interface AlbumState {
   list: Album[];
   autoComplete?: { [key in AlbumAutoCompleteTarget]?: AutoCompleteState };
 }
-
 const INITIAL_STATE: AlbumState = {
   list: [],
   autoComplete: {},
@@ -46,6 +51,19 @@ const INITIAL_STATE: AlbumState = {
 
 export const albumReducer = (state: AlbumState = INITIAL_STATE, action?: ReducerAction): AlbumState => {
   switch (action && action.type) {
+    case LOAD_ALBUMS_SUCCESS:
+      const loadSuccessAction = action as LoadAlbumsSuccessAction;
+      return {
+        ...state,
+        list: loadSuccessAction.albums.slice(), // copy
+      };
+
+    case LOAD_ALBUMS_ERROR:
+      return {
+        ...state,
+        list: state.list || [],
+      };
+
     case ADD_ALBUM_SUCCESS:
       const addSuccessAction = action as AddAlbumSuccessAction;
       return {
