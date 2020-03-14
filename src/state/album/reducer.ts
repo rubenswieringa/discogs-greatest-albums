@@ -1,6 +1,8 @@
 import {
-  ADD_ALBUM,
-  AddAlbumAction,
+  ADD_ALBUM_SUCCESS,
+  AddAlbumSuccessAction,
+  ADD_ALBUM_ERROR,
+  AddAlbumErrorAction,
   REMOVE_ALBUM,
   RemoveAlbumAction,
   AUTO_COMPLETE_ALBUM_SUCCESS,
@@ -19,7 +21,8 @@ import { adjustState } from '@utils/state';
 import { Album } from './album';
 
 type ReducerAction =
-  | AddAlbumAction
+  | AddAlbumSuccessAction
+  | AddAlbumErrorAction
   | RemoveAlbumAction
   | AutoCompleteAlbumStartAction
   | AutoCompleteAlbumSuccessAction
@@ -43,11 +46,18 @@ const INITIAL_STATE: AlbumState = {
 
 export const albumReducer = (state: AlbumState = INITIAL_STATE, action?: ReducerAction): AlbumState => {
   switch (action && action.type) {
-    case ADD_ALBUM:
-      const addAction = action as AddAlbumAction;
+    case ADD_ALBUM_SUCCESS:
+      const addSuccessAction = action as AddAlbumSuccessAction;
       return {
         ...state,
-        list: state.list.concat(addAction.album),
+        list: addSuccessAction.albums.slice(), // copy
+      };
+
+    case ADD_ALBUM_ERROR:
+      const addErrorAction = action as AddAlbumErrorAction;
+      return {
+        ...state,
+        list: state.list.concat(addErrorAction.album),
       };
 
     case REMOVE_ALBUM:
@@ -58,29 +68,29 @@ export const albumReducer = (state: AlbumState = INITIAL_STATE, action?: Reducer
       };
 
     case AUTO_COMPLETE_ALBUM_START:
-      const startAction = action as AutoCompleteAlbumStartAction;
-      return adjustState(state, ['autoComplete', startAction.target, 'state'], AlbumAutoCompleteState.LOADING);
+      const acStartAction = action as AutoCompleteAlbumStartAction;
+      return adjustState(state, ['autoComplete', acStartAction.target, 'state'], AlbumAutoCompleteState.LOADING);
 
     case AUTO_COMPLETE_ALBUM_SUCCESS:
-      const successAction = action as AutoCompleteAlbumSuccessAction;
+      const acSuccessAction = action as AutoCompleteAlbumSuccessAction;
       return {
         ...state,
         autoComplete: {
           ...state.autoComplete,
-          [successAction.target]: {
-            suggestions: successAction.albums,
+          [acSuccessAction.target]: {
+            suggestions: acSuccessAction.albums,
             state: AlbumAutoCompleteState.SUCCESS,
           },
         },
       };
 
     case AUTO_COMPLETE_ALBUM_ERROR:
-      const errorAction = action as AutoCompleteAlbumErrorAction;
-      return adjustState(state, ['autoComplete', errorAction.target, 'state'], AlbumAutoCompleteState.ERROR);
+      const acErrorAction = action as AutoCompleteAlbumErrorAction;
+      return adjustState(state, ['autoComplete', acErrorAction.target, 'state'], AlbumAutoCompleteState.ERROR);
 
     case AUTO_COMPLETE_ALBUM_RESET:
-      const resetAction = action as AutoCompleteAlbumResetAction;
-      const { [resetAction.target]: disposable, ...autoComplete } = state.autoComplete!;
+      const acResetAction = action as AutoCompleteAlbumResetAction;
+      const { [acResetAction.target]: disposable, ...autoComplete } = state.autoComplete!;
       return {
         ...state,
         autoComplete: { ...autoComplete },

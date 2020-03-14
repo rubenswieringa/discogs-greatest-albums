@@ -1,8 +1,10 @@
 import { albumFactory } from '@test/album.mock';
 
 import {
-  ADD_ALBUM,
-  AddAlbumAction,
+  ADD_ALBUM_SUCCESS,
+  AddAlbumSuccessAction,
+  ADD_ALBUM_ERROR,
+  AddAlbumErrorAction,
   REMOVE_ALBUM,
   RemoveAlbumAction,
   AUTO_COMPLETE_ALBUM_START,
@@ -38,9 +40,17 @@ describe('AlbumReducer', () => {
     expect(reducer(state)).toEqual(state);
   });
 
-  it('adds albums', () => {
+  it('updates whole album-list on album-add success', () => {
+    const oldList = [ALBUMS[0]];
+    const newList = ALBUMS.slice(1);
+    const state: AlbumState = { list: oldList };
+    const action: AddAlbumSuccessAction = { type: ADD_ALBUM_SUCCESS, albums: newList };
+    expect(reducer(state, action).list).toEqual(newList);
+  });
+
+  it('adds single album on album-add error', () => {
     const state: AlbumState = { list: ALBUMS.slice(0, 2) };
-    const action: AddAlbumAction = { type: ADD_ALBUM, album: ALBUMS[2] };
+    const action: AddAlbumErrorAction = { type: ADD_ALBUM_ERROR, album: ALBUMS[2] };
     expect(reducer(state, action).list).toEqual(ALBUMS);
   });
 
