@@ -10,6 +10,9 @@ const StyledComponent = styled.dialog({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   margin: 0,
+  maxHeight: 'calc(100vh - 50px)',
+  boxSizing: 'border-box',
+  overflowY: 'auto',
 });
 
 interface Props extends ExtendableStyledComponentProps {
