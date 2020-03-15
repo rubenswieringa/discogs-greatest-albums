@@ -4,20 +4,20 @@ import { Album } from '@state/album';
 
 interface Props {
   album: Album;
-  onClick?: (album: Album) => void | any;
+  select?: (album: Album) => void | any;
 }
 
-export const AlbumListItem: React.FunctionComponent<Props> = ({ album, onClick }) => {
-  const invokeClickHandler = useCallback(
+export const AlbumListItem: React.FunctionComponent<Props> = ({ album, select }) => {
+  const invokeSelectHandler = useCallback(
     (event: SyntheticEvent) => {
       event.preventDefault();
-      onClick && onClick(album);
+      select && select(album);
     },
-    [onClick, album],
+    [select, album],
   );
 
   return (
-    <li onClick={event => invokeClickHandler(event)}>
+    <li onClick={event => invokeSelectHandler(event)}>
       <img src={album.image} alt={`Album artwork for ${album.name}`} />
       <p>{album.name}</p>
     </li>

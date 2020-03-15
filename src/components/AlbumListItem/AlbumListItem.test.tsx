@@ -27,9 +27,9 @@ describe('AlbumListItem component', () => {
     expect(image.prop('alt')).toBe(`Album artwork for ${ALBUM.name}`);
   });
 
-  it('invokes onClick when clicked', () => {
+  it('invokes select-handler when clicked', () => {
     const callback = jest.fn();
-    const listItem = shallow(<AlbumListItem album={ALBUM} onClick={callback} />);
+    const listItem = shallow(<AlbumListItem album={ALBUM} select={callback} />);
     const event = new MouseEvent('click');
     event.preventDefault = jest.fn();
     listItem.simulate('click', event);

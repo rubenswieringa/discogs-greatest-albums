@@ -75,7 +75,7 @@ const Component: React.FunctionComponent = () => {
           {autoComplete.suggestions && autoComplete.suggestions.length && (
             <ul>
               {autoComplete.suggestions.map(album => (
-                <AlbumListItem key={album.id} album={album} onClick={album => pick(album)} />
+                <AlbumListItem key={album.id} album={album} select={album => pick(album)} />
               ))}
             </ul>
           )}
