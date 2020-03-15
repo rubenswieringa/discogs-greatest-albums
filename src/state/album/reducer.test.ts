@@ -9,8 +9,10 @@ import {
   AddAlbumSuccessAction,
   ADD_ALBUM_ERROR,
   AddAlbumErrorAction,
-  REMOVE_ALBUM,
-  RemoveAlbumAction,
+  REMOVE_ALBUM_SUCCESS,
+  RemoveAlbumSuccessAction,
+  REMOVE_ALBUM_ERROR,
+  RemoveAlbumErrorAction,
   AUTO_COMPLETE_ALBUM_START,
   AutoCompleteAlbumStartAction,
   AUTO_COMPLETE_ALBUM_SUCCESS,
@@ -76,9 +78,17 @@ describe('AlbumReducer', () => {
     expect(reducer(state, action).list).toEqual(ALBUMS);
   });
 
-  it('removes albums', () => {
+  it('updates whole album-list on album-remove success', () => {
+    const oldList = [ALBUMS[0]];
+    const newList = ALBUMS.slice(1);
+    const state: AlbumState = { list: oldList };
+    const action: RemoveAlbumSuccessAction = { type: REMOVE_ALBUM_SUCCESS, albums: newList };
+    expect(reducer(state, action).list).toEqual(newList);
+  });
+
+  it('removes single album on album-add error', () => {
     const state: AlbumState = { list: ALBUMS };
-    const action: RemoveAlbumAction = { type: REMOVE_ALBUM, album: ALBUMS[1] };
+    const action: RemoveAlbumErrorAction = { type: REMOVE_ALBUM_ERROR, album: ALBUMS[1] };
     expect(reducer(state, action).list).toEqual([ALBUMS[0], ALBUMS[2]]);
   });
 

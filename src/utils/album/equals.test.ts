@@ -5,6 +5,10 @@ describe('albumEquals', () => {
     expect(equals(null, null)).toBe(true);
   });
 
+  it('doesn’t consider falsy values and falsy IDs equal', () => {
+    expect(equals(null, { id: 0, name: 'Peach', image: 'x' })).toBe(false);
+  });
+
   it('compares albums by ID', () => {
     expect(equals({ id: 1, name: 'Peach', image: 'x' }, { id: 1, name: 'Bay Dream', image: 'x' })).toBe(true);
     expect(equals({ id: 1, name: 'Peach', image: 'y' }, { id: 1, name: 'Peach', image: 'z' })).toBe(true);

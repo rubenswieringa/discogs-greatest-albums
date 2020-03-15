@@ -7,8 +7,10 @@ import {
   AddAlbumSuccessAction,
   ADD_ALBUM_ERROR,
   AddAlbumErrorAction,
-  REMOVE_ALBUM,
-  RemoveAlbumAction,
+  REMOVE_ALBUM_SUCCESS,
+  RemoveAlbumSuccessAction,
+  REMOVE_ALBUM_ERROR,
+  RemoveAlbumErrorAction,
   AUTO_COMPLETE_ALBUM_SUCCESS,
   AutoCompleteAlbumSuccessAction,
   AUTO_COMPLETE_ALBUM_START,
@@ -29,7 +31,8 @@ type ReducerAction =
   | LoadAlbumsErrorAction
   | AddAlbumSuccessAction
   | AddAlbumErrorAction
-  | RemoveAlbumAction
+  | RemoveAlbumSuccessAction
+  | RemoveAlbumErrorAction
   | AutoCompleteAlbumStartAction
   | AutoCompleteAlbumSuccessAction
   | AutoCompleteAlbumErrorAction
@@ -78,11 +81,18 @@ export const albumReducer = (state: AlbumState = INITIAL_STATE, action?: Reducer
         list: state.list.concat(addErrorAction.album),
       };
 
-    case REMOVE_ALBUM:
-      const removeAction = action as RemoveAlbumAction;
+    case REMOVE_ALBUM_SUCCESS:
+      const removeSuccessAction = action as RemoveAlbumSuccessAction;
       return {
         ...state,
-        list: state.list.filter(album => !equals(album, removeAction.album)),
+        list: removeSuccessAction.albums.slice(), // copy
+      };
+
+    case REMOVE_ALBUM_ERROR:
+      const removeErrorAction = action as RemoveAlbumErrorAction;
+      return {
+        ...state,
+        list: state.list.filter(album => !equals(album, removeErrorAction.album)),
       };
 
     case AUTO_COMPLETE_ALBUM_START:
