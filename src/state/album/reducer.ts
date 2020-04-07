@@ -53,7 +53,7 @@ const INITIAL_STATE: AlbumState = {
 };
 
 export const albumReducer = (state: AlbumState = INITIAL_STATE, action?: ReducerAction): AlbumState => {
-  switch (action && action.type) {
+  switch (action?.type) {
     case LOAD_ALBUMS_SUCCESS:
       const loadSuccessAction = action as LoadAlbumsSuccessAction;
       return {
