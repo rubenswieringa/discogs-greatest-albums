@@ -1,4 +1,4 @@
-import { runSaga } from 'redux-saga';
+import { runSaga, Saga } from 'redux-saga';
 import faker from 'faker';
 
 import {
@@ -32,8 +32,8 @@ describe('autoCompleteAlbumSaga', () => {
   let dispatchedActions: Action[];
 
   const runSagaOptions = { dispatch: (action: Action) => dispatchedActions.push(action) };
-  type runSagaArgsType = [typeof runSagaOptions, typeof autoCompleteAlbumSaga, typeof TRIGGER];
-  let runSagaArgs: runSagaArgsType = [runSagaOptions, autoCompleteAlbumSaga, TRIGGER];
+  type runSagaArgsType = [typeof runSagaOptions, Saga, typeof TRIGGER];
+  const runSagaArgs: runSagaArgsType = [runSagaOptions, autoCompleteAlbumSaga as Saga, TRIGGER];
 
   beforeEach(() => (dispatchedActions = []));
   afterEach(jest.restoreAllMocks);

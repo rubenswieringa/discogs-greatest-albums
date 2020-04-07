@@ -1,4 +1,4 @@
-import { runSaga } from 'redux-saga';
+import { runSaga, Saga } from 'redux-saga';
 
 import { albumFactory } from '@test/album.mock';
 
@@ -30,8 +30,8 @@ describe('addAlbumSaga', () => {
   let dispatchedActions: Action[];
 
   const runSagaOptions = { dispatch: (action: Action) => dispatchedActions.push(action) };
-  type runSagaArgsType = [typeof runSagaOptions, typeof addAlbumSaga, typeof TRIGGER];
-  let runSagaArgs: runSagaArgsType = [runSagaOptions, addAlbumSaga, TRIGGER];
+  type runSagaArgsType = [typeof runSagaOptions, Saga, typeof TRIGGER];
+  const runSagaArgs: runSagaArgsType = [runSagaOptions, addAlbumSaga, TRIGGER];
 
   beforeEach(() => {
     Storage.prototype.getItem = jest.fn();
