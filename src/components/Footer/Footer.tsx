@@ -5,11 +5,10 @@ import { FooterLayout as Layout } from './layout';
 const Component: React.FunctionComponent = () => (
   <Layout>
     <p>
-      A sample project by{' '}
+      A sample code project by{' '}
       <a href="https://rubenswieringa.com" target="_blank" rel="noopener noreferrer">
         Ruben Swieringa
       </a>
-      .
     </p>
   </Layout>
 );

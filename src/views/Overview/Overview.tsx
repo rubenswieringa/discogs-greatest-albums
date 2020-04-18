@@ -34,7 +34,7 @@ const Component: React.FunctionComponent = () => {
           ))}
         </ul>
       ) : (
-        <p>Nothing here yet.</p>
+        <p>…haven’t been made yet?</p>
       )}
       <AddAlbumButton to="/add">Add album</AddAlbumButton>
     </Layout>
