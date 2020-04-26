@@ -19,6 +19,8 @@ import { AddAlbumLayout as Layout } from './layout';
 import { OpenDialog as Dialog } from './OpenDialog';
 
 const TARGET = AlbumAutoCompleteTarget.DIALOG;
+const ESC_EVENT_TYPE = 'keydown';
+const ESC_KEY_CODE = 27;
 
 const Component: React.FunctionComponent = () => {
   const { history } = useRouter();
@@ -59,6 +61,16 @@ const Component: React.FunctionComponent = () => {
 
   const [debouncedName] = useDebounce(name, 500);
   useEffect(search, [debouncedName]);
+
+  useEffect(() => {
+    const closeOnEsc = (event: KeyboardEvent) => {
+      if (event.keyCode !== ESC_KEY_CODE) return;
+      event.preventDefault();
+      close();
+    };
+    window.addEventListener(ESC_EVENT_TYPE, closeOnEsc);
+    return () => window.removeEventListener(ESC_EVENT_TYPE, closeOnEsc);
+  }, []);
 
   return (
     <Layout as={Dialog}>
