@@ -35,7 +35,7 @@ const Component: React.FunctionComponent<ExtendableStyledComponentProps> = ({ cl
       {!albums.length && <p>…haven’t been made yet?</p>}
       <ul>
         {!!albums.length &&
-          albums.map(album => <AlbumTile key={album.id} album={album} remove={album => remove(album)} />)}
+          albums.map(album => <AlbumTile key={album.id} album={album} remove={(album: Album) => remove(album)} />)}
         <AddAlbumButton to="/add">{albums.length ? 'Add another album' : 'Add your first album'}</AddAlbumButton>
       </ul>
     </Layout>
