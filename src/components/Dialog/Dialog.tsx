@@ -13,6 +13,7 @@ const StyledComponent = styled.dialog({
   maxHeight: 'calc(100vh - 50px)',
   boxSizing: 'border-box',
   overflowY: 'auto',
+  zIndex: 1, // on top of everything else
 });
 
 interface Props extends ExtendableStyledComponentProps {

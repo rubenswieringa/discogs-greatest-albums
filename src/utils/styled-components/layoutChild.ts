@@ -7,4 +7,4 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const styledLayoutChild = (component: React.FunctionComponent) => styled(component)({});
+export const styledLayoutChild = (component: React.FunctionComponent<any>) => styled(component)({});

@@ -2,12 +2,19 @@ import React, { useCallback, SyntheticEvent } from 'react';
 
 import { Album } from '@state/album';
 
-interface Props {
+import { AlbumTileLayout as Layout, AlbumTileRemoveButton as RemoveButton } from './layout';
+import {
+  styledLayoutChild,
+  ExtendableStyledComponentProps,
+  extendableStyledComponentAttrs,
+} from '@utils/styled-components';
+
+interface Props extends ExtendableStyledComponentProps {
   album: Album;
   remove?: (album: Album) => void | any;
 }
 
-export const AlbumTile: React.FunctionComponent<Props> = ({ album, remove }) => {
+const Component: React.FunctionComponent<Props> = ({ album, className, remove }) => {
   const invokeRemoveHandler = useCallback(
     (event: SyntheticEvent) => {
       event.preventDefault();
@@ -17,9 +24,11 @@ export const AlbumTile: React.FunctionComponent<Props> = ({ album, remove }) => 
   );
 
   return (
-    <li title={album.name}>
+    <Layout title={album.name} {...extendableStyledComponentAttrs(className)}>
       <img src={album.image} alt={`Album artwork for ${album.name}`} />
-      <button onClick={event => invokeRemoveHandler(event)}>Remove</button>
-    </li>
+      <RemoveButton onClick={event => invokeRemoveHandler(event)}>Remove {album.name}</RemoveButton>
+    </Layout>
   );
 };
+
+export const AlbumTile = styledLayoutChild(Component);

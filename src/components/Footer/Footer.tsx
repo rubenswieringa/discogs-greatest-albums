@@ -1,16 +1,22 @@
 import React from 'react';
 
-import { FooterLayout as Layout } from './layout';
+import {
+  extendableStyledComponentAttrs,
+  ExtendableStyledComponentProps,
+  styledLayoutChild,
+} from '@utils/styled-components';
 
-const Component: React.FunctionComponent = () => (
-  <Layout>
-    <p>
-      A sample code project by{' '}
+import { FooterLayout as Layout, FooterP as P } from './layout';
+
+const Component: React.FunctionComponent<ExtendableStyledComponentProps> = ({ className }) => (
+  <Layout {...extendableStyledComponentAttrs(className)}>
+    <P>
+      a sample code project by{' '}
       <a href="https://rubenswieringa.com" target="_blank" rel="noopener noreferrer">
         Ruben Swieringa
       </a>
-    </p>
+    </P>
   </Layout>
 );
 
-export const Footer = Component;
+export const Footer = styledLayoutChild(Component);

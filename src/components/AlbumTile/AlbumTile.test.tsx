@@ -1,6 +1,6 @@
 import React from 'react';
 import faker from 'faker';
-import { shallow, mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 
 import { Album } from '@state/album';
 
@@ -10,12 +10,12 @@ describe('AlbumTile component', () => {
   const ALBUM: Album = { id: 1, name: 'Reign In Blood', image: faker.image.abstract() };
 
   it('is a <li>', () => {
-    const listItem = shallow(<AlbumTile album={ALBUM} />);
+    const listItem = render(<AlbumTile album={ALBUM} />);
     expect(listItem.is('li')).toBe(true);
   });
 
   it('has album name as a tooltip', () => {
-    const listItem = shallow(<AlbumTile album={ALBUM} />);
+    const listItem = render(<AlbumTile album={ALBUM} />);
     expect(listItem.prop('title')).toBe(ALBUM.name);
   });
 
@@ -33,12 +33,12 @@ describe('AlbumTile component', () => {
     expect(listItem).toContainExactlyOneMatchingElement('button');
 
     const button = listItem.find('button');
-    expect(button).toHaveText('Remove');
+    expect(button).toHaveText(`Remove ${ALBUM.name}`);
   });
 
   it('invokes remove-handler on remove-button click', () => {
     const callback = jest.fn();
-    const listItem = shallow(<AlbumTile album={ALBUM} remove={callback} />);
+    const listItem = mount(<AlbumTile album={ALBUM} remove={callback} />);
 
     const button = listItem.find('button');
     if (!button) return;
