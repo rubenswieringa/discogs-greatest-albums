@@ -26,7 +26,9 @@ const Component: React.FunctionComponent<Props> = ({ album, className, remove })
   return (
     <Layout title={album.name} {...extendableStyledComponentAttrs(className)}>
       <img src={album.image} alt={`Album artwork for ${album.name}`} />
-      <RemoveButton onClick={event => invokeRemoveHandler(event)}>Remove {album.name}</RemoveButton>
+      <RemoveButton onClick={event => invokeRemoveHandler(event)} title={`Remove ${album.name}`}>
+        Remove {album.name}
+      </RemoveButton>
     </Layout>
   );
 };
