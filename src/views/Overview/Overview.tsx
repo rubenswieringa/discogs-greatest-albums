@@ -20,13 +20,9 @@ const Component: React.FunctionComponent<ExtendableStyledComponentProps> = ({ cl
     dispatch<LoadAlbumsAction>({ type: LOAD_ALBUMS });
   }, []);
 
-  const remove = useCallback(
-    (album: Album) => {
-      dispatch<RemoveAlbumAction>({ type: REMOVE_ALBUM, album });
-      close();
-    },
-    [close],
-  );
+  const remove = useCallback((album: Album) => {
+    dispatch<RemoveAlbumAction>({ type: REMOVE_ALBUM, album });
+  }, []);
 
   const albums = useSelector(({ albums }: State) => albums.list);
 
