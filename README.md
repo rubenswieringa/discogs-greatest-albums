@@ -15,7 +15,7 @@ Also note that obviously the emphasis in this project is code, not aesthetics; I
 
 This project lets its user assemble their own list of all-time-favorite music albums.
 
-It has basic add/remove and auto-complete functionality. It uses the [Discogs](https://discogs.com) API for querying data and (for simplicity’s sake) stores the user its choices in local storage.
+It has basic add/remove, routing and auto-complete functionality. It uses the [Discogs](https://discogs.com) API for querying data and (for simplicity’s sake) stores the user’s choices in local storage.
 
 
 ## Run
