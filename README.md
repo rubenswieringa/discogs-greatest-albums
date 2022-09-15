@@ -6,7 +6,7 @@ This is a **sample-code project** I put together back in 2019 for demonstration 
 
 Note that the codebase is **intentionally over-engineered**. For example, in real developer life, I would not think to use Redux and Sagas on a project of this size.
 
-Additionally, seeing as this project was put together a little while back and technology has since evolved, I **would probably use different libraries** now. I would have swapped out Styled Components for Emotion.
+Additionally, seeing as this project was put together a little while back and technology has since evolved, I **would probably use different libraries** now. I would have swapped out Enzyme for React Testing Library and Mock Service Worker, and Styled Components for Emotion, for example.
 
 Also note that obviously the emphasis in this project is code, not aesthetics; I’m really not trying to convince any visual designers here.
 
